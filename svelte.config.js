@@ -7,7 +7,7 @@ const config = {
 			fallback: '404.html', // ensures routing works
 		}),
 		paths: {
-			base: '/your-repo-name', // Replace with your actual repository name
+			base: '/my-portfolio', // Replace with your actual repository name
 		},
 	},
 };
