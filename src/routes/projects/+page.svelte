@@ -5,9 +5,9 @@
 <nav>
     <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/projects">Projects</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/resume">Resume</a></li>
+        <li><a href="/my-portfolio/projects">Projects</a></li>
+        <li><a href="/my-portfolio/contact">Contact</a></li>
+        <li><a href="/my-portfolio/resume">Resume</a></li>
         <li><a href="https://github.com/alisoncher" target="_blank">GitHub</a></li>
     </ul>
         
