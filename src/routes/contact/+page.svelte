@@ -5,9 +5,9 @@
     <ul>
 
         <li><a href="/">Home</a></li>
-        <li><a href="/projects">Projects</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/resume">Resume</a></li>
+        <li><a href="projects/">Projects</a></li>
+        <li><a href="contact/">Contact</a></li>
+        <li><a href="resume/">Resume</a></li>
         <li><a href="https://github.com/alisoncher" target="_blank">GitHub</a></li>
 
         <!-- <li><a href="/Users/alisoncher/Documents/GitHub/portfolio/index.html">Home</a></li> 
