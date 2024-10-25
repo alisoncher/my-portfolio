@@ -1,62 +1,87 @@
+
 <svelte:head>
   <title>Home</title>
 </svelte:head>
 
-<script>
-  let pages = [
-    { url: '/', title: 'Home' },
-    { url: '/projects', title: 'Projects' },
-    { url: '/contact', title: 'Contact' },
-    { url: '/resume', title: 'Resume' },
-  ];
-
-  let currentPath = window.location.pathname;
-</script>
-
-<nav>
-  {#each pages as p}
-    <a href={p.url}
-       class="{p.url === currentPath ? 'current' : ''}">
-      {p.title}
-    </a>
-  {/each}
-  <a href="https://github.com/alisoncher" target="_blank">GitHub</a>
-</nav>
-
-<style>
-  nav {
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid #ccc;
+<!-- <style>
+  :global(body) {
+    max-width: 1300px;
+    margin-inline: auto;   
+    padding: 20px;  
+    text-align: center;   
+    background-color: Canvas;  
+    color: CanvasText;
   }
-  
-  nav a {
-    padding: 10px;
+
+  :global(nav) {
+    display: flex; 
+    justify-content: center; 
+    margin-bottom: 40px;
+  }
+
+  :global(nav ul) {
+    display: flex; 
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0;
+  }
+
+  :global(nav ul li) {
+    flex: 1; 
+  }
+
+  :global(nav a) {
+    display: block; 
+    text-align: center; 
+    padding: 10px; 
     text-decoration: none;
     color: inherit;
-    text-align: center;
   }
 
-  nav a.current {
-    border-bottom: 4px solid #ccc;
-    font-weight: bold;
+  :global(nav a.current) {
+    border-bottom: 0.4em solid oklch(80% 3% 200);
+    padding-bottom: 6px;
   }
 
-  nav a:hover {
-    background-color: #f0f0f0;
+  :global(nav a:hover) {
+    border-bottom: 0.4em solid var(--color-accent); 
+    padding-bottom: 6px;
+    background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
   }
-</style>
 
-<form id="color-scheme-form">
-  <label for="color-scheme-select">Theme:</label>
-      <select id="color-scheme-select" name="color-scheme">
-          <option value="auto" selected>Automatic (Default)</option>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-      </select>
-</form>
+  body {
+        background-color: Canvas;  
+        color: CanvasText;         
+        max-width: 1300px;
+        margin-inline: auto;
+        padding: 20px;
+        text-align: center;
+        }
+
+        #color-scheme-form {
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+        }
+
+        #color-scheme-select {
+            margin: 0; 
+        }
+</style> -->
 
 
+<nav>
+
+  <form id="color-scheme-form">
+      <label for="color-scheme-select">Theme:</label>
+          <select id="color-scheme-select" name="color-scheme">
+              <option value="auto" selected>Automatic (Default)</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+          </select>
+  </form>
+  
+</nav> 
 <h1>Alison Cher</h1>
 <p>I'm just a girl</p>
 <img src="images/alison.jpg" alt="A cloudy day in New York City" style="width: 300px; height: auto;">
