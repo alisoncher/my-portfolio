@@ -20,16 +20,16 @@
 
 
     <!-- </ul> -->
-
-    <!-- <form id="color-scheme-form">
+<!-- 
+    <form id="color-scheme-form">
         <label for="color-scheme-select">Theme:</label>
             <select id="color-scheme-select" name="color-scheme">
                 <option value="auto" selected>Automatic (Default)</option>
                 <option value="light">Light</option>
                 <option value="dark">Dark</option>
             </select>
-    </form> -->
-<!-- </nav>  -->
+    </form>
+</nav>  -->
 
 
 <h1>Contact</h1>

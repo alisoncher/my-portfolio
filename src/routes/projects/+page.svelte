@@ -1,4 +1,8 @@
-<nav>
+<svelte:head>
+  <title>Projects</title>
+</svelte:head> 
+
+<!-- <nav>
     <ul>
         <form id="color-scheme-form">
             <label for="color-scheme-select">Theme:</label>
@@ -9,7 +13,7 @@
                 </select>
         </form>
     </ul>
-</nav> 
+</nav>  -->
 
 <h1>Projects</h1>
 

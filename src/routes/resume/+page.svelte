@@ -1,3 +1,8 @@
+<svelte:head>
+  <title>Resume</title>
+</svelte:head>
+
+
 <nav>
     <ul>
 
@@ -13,15 +18,16 @@
         <li><a href="index.html">Resume</a></li>
         <li><a href="https://github.com/alisoncher" target="_blank">GitHub</a></li>  -->
 
-        <form id="color-scheme-form">
+        <!-- <form id="color-scheme-form">
             <label for="color-scheme-select">Theme:</label>
                 <select id="color-scheme-select" name="color-scheme">
                     <option value="auto" selected>Automatic (Default)</option>
                     <option value="light">Light</option>
                     <option value="dark">Dark</option>
                 </select>
-        </form>
+        </form> -->
     </ul>
+
 </nav> 
 <h1>Alison Cher</h1>
 <h1 class="email">Los Angeles, California</h1>

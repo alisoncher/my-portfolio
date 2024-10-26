@@ -1,11 +1,80 @@
 console.log('IT’S ALIVE!');
 
+document.addEventListener("DOMContentLoaded", () => {
+document.body.insertAdjacentHTML(
+    'afterbegin',
+    `
+    <label class="color-scheme" style="position: absolute; top: 1rem; right: 1rem; font-size: 80%;">
+        Theme:
+        <select id="color-scheme-selector">
+            <option value="light dark">Automatic</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+        </select>
+    </label>
+    `
+);
 
+
+ // Get the select element and the root element (HTML)
+//  const colorSchemeSelect = document.getElementById('color-scheme-select');
+//  const root = document.documentElement;
+
+const select = document.querySelector("#color-scheme-selector")
+ 
+ 
+ // Helper function to set the color scheme
+ function setColorScheme(scheme) {
+    //  if (scheme === 'auto') {
+    //      root.style.colorScheme = 'light dark'; // Use OS preference
+    //  } else {
+    //      root.style.colorScheme = scheme; // 'light' or 'dark'
+    // }
+
+    document.documentElement.style.setProperty("color-scheme", scheme); 
+    localStorage.colorScheme=scheme;
+ }
+
+ if ("colorScheme" in localStorage) {
+    select.value=localStorage.colorScheme;
+    setColorScheme(localStorage.colorScheme);
+ }
+
+ select.addEventListener("input", event => {
+    const scheme = event.target.value;
+    setColorScheme(scheme);
+ });
+ 
+ // Set the initial color scheme to 'auto'
+//  setColorScheme('auto');
+ 
+ 
+ 
+//  function applyColorScheme(scheme) {
+//      document.documentElement.style.colorScheme = scheme;
+//  }
+ 
+//  // Event listener for dropdown changes
+//  colorSchemeSelect.addEventListener("change", (event) => {
+//      const selectedScheme = event.target.value;
+//      localStorage.colorScheme = selectedScheme; // Save to localStorage
+//      applyColorScheme(selectedScheme); // Apply the selected color scheme
+//  });
+ 
+//  // Read and apply the saved color scheme on page load
+//  window.addEventListener("DOMContentLoaded", () => {
+//      const savedScheme = localStorage.colorScheme || "auto"; // Default to 'auto'
+//      applyColorScheme(savedScheme); // Apply the saved color scheme
+//      colorSchemeSelect.value = savedScheme; // Update the dropdown value
+//  });
+ 
+ 
+//add nav menu//
 let pages = [
-    { url: '', title: 'Home' },
-    { url: 'projects/', title: 'Projects' },
-    { url: 'contact/', title: 'Contact' },
-    { url: 'resume/', title: 'Resume' },
+    { url: '.', title: 'Home' },
+    { url: 'projects', title: 'Projects' },
+    { url: 'contact', title: 'Contact' },
+    { url: 'resume', title: 'Resume' },
     { url: 'https://github.com/alisoncher', title: 'GitHub', external: true } // External link
 ];
 
@@ -20,15 +89,16 @@ const ARE_WE_HOME = document.documentElement.classList.contains('home');
 for (let p of pages) {
     let url = p.url;
     let title = p.title;
-    let isExternal = p.external || false; 
+    // let isExternal = p.external || false; 
 
     // Modify the URL if we are not on the home page
-    url = !ARE_WE_HOME && !isExternal && !url.startsWith('http') ? '../' + url : url;
+    // url = !ARE_WE_HOME && !isExternal && !url.startsWith('http') ? '../' + url : url;
 
     // Create a new <a> element
     let a = document.createElement('a');
     a.href = url;
     a.textContent = title;
+    nav.append(a);
 
     if (a.host === location.host && a.pathname === location.pathname) {
         a.classList.add('current');
@@ -37,64 +107,6 @@ for (let p of pages) {
     // Add current class if this is the current page
     a.classList.toggle('current', a.host === location.host && a.pathname === location.pathname);
 
-    nav.append(a);
 }
 
-
-
-
-  // Get the select element and the root element (HTML)
-const colorSchemeSelect = document.getElementById('color-scheme-select');
-const root = document.documentElement;
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     // Color scheme selector
-//     document.body.insertAdjacentHTML(
-//         'afterbegin',
-//         `
-//         <label class="color-scheme" style="position: absolute; top: 1rem; right: 1rem; font-size: 80%;">
-//             Theme:
-//             <select id="color-scheme-selector">
-//                 <option value="light dark">Automatic</option>
-//                 <option value="light">Light</option>
-//                 <option value="dark">Dark</option>
-//             </select>
-//         </label>
-//         `
-//     );
-
-// Helper function to set the color scheme
-function setColorScheme(scheme) {
-    if (scheme === 'auto') {
-        root.style.colorScheme = 'light dark'; // Use OS preference
-    } else {
-        root.style.colorScheme = scheme; // 'light' or 'dark'
-    }
-}
-
-// Set the initial color scheme to 'auto'
-setColorScheme('auto');
-
-// Add an event listener to update the color scheme when the user selects a new option
-// colorSchemeSelect.addEventListener('change', (event) => {
-//     setColorScheme(event.target.value);
-// });
-
-function applyColorScheme(scheme) {
-    document.documentElement.style.colorScheme = scheme;
-}
-
-// Event listener for dropdown changes
-colorSchemeSelect.addEventListener("change", (event) => {
-    const selectedScheme = event.target.value;
-    localStorage.colorScheme = selectedScheme; // Save to localStorage
-    applyColorScheme(selectedScheme); // Apply the selected color scheme
-});
-
-// Read and apply the saved color scheme on page load
-window.addEventListener("DOMContentLoaded", () => {
-    const savedScheme = localStorage.colorScheme || "auto"; // Default to 'auto'
-    applyColorScheme(savedScheme); // Apply the saved color scheme
-    colorSchemeSelect.value = savedScheme; // Update the dropdown value
-});
-
+})
