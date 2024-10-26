@@ -75,7 +75,7 @@ let pages = [
     { url: 'projects', title: 'Projects' },
     { url: 'contact', title: 'Contact' },
     { url: 'resume', title: 'Resume' },
-    { url: 'https://github.com/alisoncher', title: 'GitHub', external: true } // External link
+    { url: 'https://github.com/alisoncher', title: 'GitHub' } // External link
 ];
 
 // Create a new <nav> element and prepend it to the body
