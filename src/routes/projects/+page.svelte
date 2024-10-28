@@ -16,13 +16,13 @@
       {/each}
  
 
-        <h2>Possimus assumenda veniam quam.</h2>
+        <h2>Project 1 : Expository Visualization</h2>
         <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-        <p>Possimus, eius consequuntur! Deleniti hic reiciendis tempora? Facere cupiditate temporibus natus iure, consequatur ipsa, officia similique iste alias eius magnam! Quae, quam laudantium inventore ratione facere quia quos repudiandae asperiores.</p>
+        <p>Designed an expository visualization to clearly communicate an idea based on a small data set.</p>
    
-        <h2>Id et asperiores voluptatum!</h2>
+        <h2>Project 2 : Deceptive Visualization</h2>
         <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-        <p>Possimus nobis impedit quibusdam sint atque doloribus, cumque provident distinctio, rerum totam excepturi obcaecati harum maxime assumenda voluptas magnam incidunt? Similique quia ut sapiente aspernatur saepe nostrum doloribus magni aliquid?</p>
+        <p>Created two static visualizations of a selected dataset. The first visualization is designed to clearly and sincerely convey insights from the data. In contrast, the second is crafted to intentionally mislead the viewer, causing them to make incorrect inferences.</p>
     
         <h2>Illo eius consequuntur iusto.</h2>
         <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">

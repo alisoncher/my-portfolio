@@ -3,6 +3,7 @@
 <script>
   import projects from '$lib/projects.json';
   import Project from '$lib/Project.svelte';
+  const url = "https://api.github.com/users/alisoncher";
   // export let hLevel = 2;
 </script>
 
@@ -21,3 +22,36 @@
   <Project data = {p} hLevel = {3}/>
   {/each}
 </div>
+
+
+
+<section>
+  <h2>GitHub Profile Stats</h2>
+
+  {#await fetch(url)}
+    <p>Loading...</p>
+  {:then response}
+    {#await response.json()}
+      <p>Decoding...</p>
+    {:then data}
+      <dl>
+        <dt>Public Repositories</dt>
+        <dd>{data.public_repos}</dd>
+
+        <dt>Followers</dt>
+        <dd>{data.followers}</dd>
+
+        <dt>Following</dt>
+        <dd>{data.following}</dd>
+
+        <dt>Account Created</dt>
+        <dd>{new Date(data.created_at).toLocaleDateString()}</dd>
+      </dl>
+    {:catch error}
+      <p class="error">Something went wrong: {error.message}</p>
+    {/await}
+  {:catch error}
+    <p class="error">Something went wrong: {error.message}</p>
+  {/await}
+</section>
+

@@ -110,3 +110,6 @@ for (let p of pages) {
 }
 
 })
+
+
+let profileData = fetch('https://api.github.com/users/alisoncher');
