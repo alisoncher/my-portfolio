@@ -61,6 +61,5 @@
         <p>Voluptas aperiam sit, necessitatibus ea quibusdam voluptatibus praesentium tenetur doloremque et illum fugiat ullam quis dolorem, earum voluptatum animi harum reiciendis fuga eaque vel eveniet, esse nisi inventore. Dolor, minima.</p>
 </div>
 
-<p>Here are some projects that I am currently working on:</p>
-<p><strong>*** COMING SOON! ****</strong></p>
+
     
