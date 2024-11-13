@@ -129,4 +129,149 @@ body {
               margin: 0; 
           }
 
+
+    svg {
+        max-width: 20em;
+        margin-block: 2em;
+        overflow: visible;
+    }
+
+    body {
+  /* Set line height to 1.5 times the font size
+       and use the OS’s UI font as the website font
+     */
+  font: 100%/1.5 system-ui;
+}
+
+/*css for nav*/
+
+        :root {
+            --color-accent: oklch(65% 50% 0); 
+            accent-color: var(--color-accent);
+        }
+        body {
+            max-width: 1300px;
+            margin-inline: auto;   
+            padding: 20px;  
+            text-align: center;   
+        }
+
+        nav {
+            display: flex; 
+            justify-content: center; 
+            margin-bottom: 40px;
+        
+            
+        }
+
+        nav ul {
+            display: contents;
+            list-style-type: none; 
+            padding: 0; 
+            margin: 0;
+        }
+
+        nav ul li {
+            flex: 1; 
+        }
+
+
+        nav a {
+            display: block; 
+            text-align: center; 
+            padding: 10px; 
+            text-decoration: none;
+            color: inherit; 
+        }
+
+        nav a.current {
+            border-bottom: 0.4em solid oklch(80% 3% 200);
+            padding-bottom: 6px;
+        }
+
+        nav a:hover {
+            border-bottom: 0.4em solid var(--color-accent); 
+            padding-bottom: 6px; 
+            
+            background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
+        } 
+        html {
+        color-scheme: light dark;
+        }
+        body {
+        background-color: Canvas;  
+        color: CanvasText;         
+        max-width: 1300px;
+        margin-inline: auto;
+        padding: 20px;
+        text-align: center;
+        }
+
+        #color-scheme-form {
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+        }
+
+        #color-scheme-select {
+            margin: 0; 
+        }
+
+        /* css for projects page*/
+
+        h1, h2, h4, h5, h6 {
+          line-height: 1.1; 
+          text-wrap: balance; 
+       
+          }
+  
+          h1 {
+          font-size: 1.5rem;
+          }
+
+          h2 {
+            font-size: 1rem;
+            }
+  
+          .projects {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+          gap: 20px;
+          }
+  
+          article {
+          display: grid;
+          grid-template-rows : subgrid;
+          grid-row: span 3;
+          margin: 0;
+          }
+  
+          html {
+          color-scheme: light dark;
+          }
+          body {
+          background-color: Canvas;   
+          color: CanvasText;          
+          max-width: 1300px;
+          margin-inline: auto;
+          padding: 20px;
+          text-align: center; }
+  
+          #color-scheme-form {
+              position: absolute; 
+              top: 10px; 
+              right: 10px; 
+          }
+  
+          #color-scheme-select {
+              margin: 0; 
+          }
+
+
+    svg {
+        max-width: 20em;
+        margin-block: 2em;
+        overflow: visible;
+    }
+
         
