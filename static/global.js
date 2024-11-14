@@ -114,3 +114,20 @@ for (let p of pages) {
 
 
 let profileData = fetch('https://api.github.com/users/alisoncher');
+
+let margin = { top: 10, right: 10, bottom: 30, left: 20 };
+
+let usableArea = {
+    top: margin.top,
+    right: width - margin.right,
+    bottom: height - margin.bottom,
+    left: margin.left,
+  };
+  usableArea.width = usableArea.right - usableArea.left;
+  usableArea.height = usableArea.bottom - usableArea.top;
+
+let xAxis, yAxis;
+$: {
+    d3.select(xAxis).call(d3.axisBottom(xScale));
+    d3.select(yAxis).call(d3.axisLeft(yScale));
+  }
