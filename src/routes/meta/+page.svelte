@@ -4,6 +4,7 @@
 <script>
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
+  import Pie from '$lib/Pie.svelte';
 
   let data = [];
   let commits = [];
@@ -23,11 +24,31 @@
     height: height - margin.top - margin.bottom,
   };
 
-  let xAxis, yAxis, yAxisGridlines; // Declare the gridlines element
-
   // Define Y scale for time of day and X scale for commit dates
   let yScale = d3.scaleLinear().domain([0, 24]).range([usableArea.bottom, usableArea.top]);
   let xScale;
+
+  let xAxis, yAxis, yAxisGridlines; // Declare the gridlines element
+  let svg;  // Reference for the SVG element
+
+  let brushSelection = null;
+
+// Reactively track selected commits and their status
+    $: selectedCommits = brushSelection ? commits.filter(isCommitSelected) : [];
+    $: hasSelection = brushSelection && selectedCommits.length > 0;
+
+    function isCommitSelected(commit) {
+    if (!brushSelection) return false;
+    const [[x0, y0], [x1, y1]] = brushSelection;
+    const x = xScale(commit.datetime);
+    const y = yScale(commit.hourFrac);
+    return x >= x0 && x <= x1 && y >= y0 && y <= y1;
+  }
+
+  function brushed(event) {
+    brushSelection = event.selection;
+  }
+
 
   $: if (commits.length) {
     // After commits are loaded, set up the X scale based on datetime values
@@ -50,16 +71,18 @@
       );
   }
 
+
+
   onMount(async () => {
     // Read the CSV and convert rows as necessary
     data = await d3.csv('loc.csv', (row) => ({
-      ...row,
-      line: +row.line,
-      depth: +row.depth,
-      length: +row.length,
-      date: new Date(row.date + 'T00:00' + row.timezone),
-      datetime: new Date(row.datetime),
-    }));
+  ...row,
+  line: Number(row.line), // or just +row.line
+  depth: Number(row.depth),
+  length: Number(row.length),
+  date: new Date(row.date + 'T00:00' + row.timezone),
+  datetime: new Date(row.datetime),
+}));
 
     // Group the data by commit
     commits = d3.groups(data, (d) => d.commit).map(([commit, lines]) => {
@@ -102,7 +125,32 @@
 
   let hoveredIndex = -1;
   $: hoveredCommit = commits[hoveredIndex] ?? hoveredCommit ?? {};
+
+
+
+  // Add brush functionality
+  $: {
+    d3.select(svg).call(d3.brush());
+    d3.select(svg).selectAll('.dots, .overlay ~ *').raise();
+    d3.select(svg).call(d3.brush().on('start brush end', brushed));
+    }
   
+$: selectedLines = (hasSelection ? selectedCommits : commits).flatMap(
+  (d) => d.lines,);
+
+$: languageBreakdown = d3.rollup(
+  selectedLines,
+  (v) => d3.sum(v, (line) => line.length),
+  (line) => line.type || 'Unknown'  // Default 'Unknown' if no language is found
+);
+
+$: languageData = Array.from(languageBreakdown).map(([language, lines]) => ({
+  label: language,
+  value: lines
+}));
+
+
+
 </script>
 
 <dl class="stats">
@@ -122,9 +170,22 @@
   <dd>{numDaysWorked}</dd>
 </dl>
 
+<Pie data={languageData} />
+
+
+<h2>Language Breakdown</h2>
+{#each languageBreakdown as [language, lines]}
+  <div>
+    <strong>{language}</strong>: 
+    {d3.format(".1~%")(lines / selectedLines.length)}
+  </div>
+{/each}
+
 <h2>Commits by Time of Day</h2>
 
-<svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+<p>{hasSelection ? selectedCommits.length : "No"} commits selected</p>
+
+<svg viewBox={`0 0 ${width} ${height}`} width={width} height={height} bind:this={svg}>
   <!-- Gridlines -->
   <g class="gridlines" transform={`translate(${usableArea.left}, 0)`} bind:this={yAxisGridlines} />
   
@@ -145,13 +206,14 @@
         on:mouseenter={evt => {
             hoveredIndex = index;
             hoveredCommit = commit;
-            hoveredCommit.tooltipX = evt.clientX + 10;  /* Position tooltip with a small offset */
-            hoveredCommit.tooltipY = evt.clientY + 10;  /* Position tooltip with a small offset */
-          }}
-          on:mouseleave={() => {
+            hoveredCommit.tooltipX = evt.clientX + 10;  
+            hoveredCommit.tooltipY = evt.clientY + 10;  
+        }}
+        on:mouseleave={() => {
             hoveredIndex = -1;
-            hoveredCommit = {};  /* Hide the tooltip */
-          }}
+            hoveredCommit = null;  // Change this to `null` to avoid breaking the condition
+        }}
+        
       />
     {/each}
   </g>
@@ -161,10 +223,10 @@
   svg {
     overflow: visible;
     width: 100%;
-    height: auto
+    height: auto;
   }
 
-  /* Styling the gridlines */
+ 
   .gridlines .tick line {
     stroke: #ddd;
     stroke-opacity: 0.7;
@@ -175,7 +237,7 @@
   }
 
   .gridlines path {
-    display: none;  /* Hide the axis path */
+    display: none;  
   }
 
   .stats {
@@ -208,21 +270,24 @@
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-size: 14px;
-    display: none;  /* Initially hidden, controlled by Svelte logic */
     pointer-events: none; /* Tooltip shouldn't interfere with mouse events */
     z-index: 10;
     max-width: 300px;  /* Prevents the tooltip from becoming too wide */
-  }
+    /* Do not set display: none here, instead control visibility with Svelte logic */
+}
+
 
   .info dt {
     font-weight: bold;
   }
+
 </style>
 
-<dl id="commit-tooltip" class="info tooltip" 
-    style="display: {hoveredCommit.id ? 'block' : 'none'}; 
+<dl id="commit-tooltip" class="info tooltip"
+    style="display: {hoveredCommit.id ? 'block' : 'none'};
            top: {hoveredCommit.tooltipY}px; 
            left: {hoveredCommit.tooltipX}px;">
+
   <dt>Commit</dt>
   <dd>
     <a href="{ hoveredCommit.url }" target="_blank">{ hoveredCommit.id }</a>
@@ -231,7 +296,7 @@
   <dt>Date</dt>
   <dd>{ hoveredCommit.datetime?.toLocaleString("en", {dateStyle: "full"}) }</dd>
   
-  <!-- Add: Time, author, lines edited -->
+
   <dt>Time</dt>
   <dd>{ hoveredCommit.time }</dd>
 
